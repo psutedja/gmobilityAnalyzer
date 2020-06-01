@@ -28,10 +28,17 @@ plotAndSave <- function(country,subregion = "") { #retrieve and save the data
     labs(color = "Region") +
     geom_line() +
     scale_y_continuous(breaks=seq(-100,50,25),limits=(c(-100,50))) + 
+    scale_x_date(date_breaks = "4 weeks ", date_minor_breaks = "1 week", date_labels = "%d-%b") +
     scale_color_manual(values = colorToPlot,limits=names(colorToPlot)) +
+    geom_hline(yintercept=0,colour="red",alpha=0.4) +
     geom_vline(xintercept=ymd("2020-03-02"),linetype=4, colour="black",alpha=0.3) + #first Covid-19 case found in Indonesia
+    geom_vline(xintercept=ymd("2020-03-25"),linetype=4, colour="red",alpha=0.3) + #Nyepi day
+    geom_vline(xintercept=ymd("2020-04-10"),linetype=4, colour="red",alpha=0.3) + #Good Friday
     geom_vline(xintercept=ymd("2020-04-24"),linetype=4, colour="black",alpha=0.3) + #first day of Muslim fasting period
-    geom_vline(xintercept=ymd("2020-05-23"),linetype=4, colour="black",alpha=0.3) + #Eid-Al-Fitr day
+    geom_vline(xintercept=ymd("2020-05-01"),linetype=4, colour="red",alpha=0.3) + #Labor day
+    geom_vline(xintercept=ymd("2020-05-7"),linetype=4, colour="red",alpha=0.3) + #Waisak day
+    geom_vline(xintercept=ymd("2020-05-21"),linetype=4, colour="red",alpha=0.3) + #Ancesion day of Jesus Christ
+    geom_vline(xintercept=ymd("2020-05-23"),linetype=4, colour="red",alpha=0.3) + #Eid-Al-Fitr day
     facet_wrap(~location,ncol=3,nrow=2) + xlab("Date") + ylab("% vs baseline")
   ggsave(paste("./data/",str_replace_all(tolower(subregion),"\\s",""),".png",sep="")) #save it by region name
 }
