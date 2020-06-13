@@ -16,7 +16,7 @@ retrieveByRegion <- function(country,subregion1 = "") { #select mobility data ba
     setNames(c("code","country","subregion","subregion2","date","retail_and_recreation","grocery_and_pharmacy","parks","transit_stations","workplaces","residential")) %>% 
     select(-subregion2) %>%
     gather("location","vs_baseline",c(retail_and_recreation,grocery_and_pharmacy,parks,transit_stations,workplaces,residential)) %>% 
-    mutate(as.factor(location))
+    mutate(location = as.factor(location))
 }
 
 plotAndSave <- function(country,subregion = "") { #retrieve and save the data
@@ -39,8 +39,9 @@ plotAndSave <- function(country,subregion = "") { #retrieve and save the data
     geom_vline(xintercept=ymd("2020-05-7"),linetype=4, colour="red",alpha=0.3) + #Waisak day
     geom_vline(xintercept=ymd("2020-05-21"),linetype=4, colour="red",alpha=0.3) + #Ancesion day of Jesus Christ
     geom_vline(xintercept=ymd("2020-05-23"),linetype=4, colour="red",alpha=0.3) + #Eid-Al-Fitr day
+    geom_vline(xintercept=ymd("2020-06-01"),linetype=4, colour="red",alpha=0.3) + #Pancasila Day
     facet_wrap(~location,ncol=3,nrow=2) + xlab("Date") + ylab("% vs baseline")
-  ggsave(paste("./data/",str_replace_all(tolower(subregion),"\\s",""),".png",sep="")) #save it by region name
+  ggsave(paste("./data/mobility/",str_replace_all(tolower(subregion),"\\s",""),".png",sep="")) #save it by region name
 }
 
 #test using provinces in Indonesia
