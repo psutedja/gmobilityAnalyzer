@@ -13,8 +13,8 @@ retrieveByRegion <- function(country,subregion1 = "") { #select mobility data ba
   #filter and clean the resulting dataset
   gmobilityReport %>% 
     filter(country_region == country,sub_region_1 == subregion1 | sub_region_1 == country) %>% 
-    setNames(c("code","country","subregion","subregion2","date","retail_and_recreation","grocery_and_pharmacy","parks","transit_stations","workplaces","residential")) %>% 
-    select(-subregion2) %>%
+    setNames(c("code","country","subregion","subregion2","ISO_3166_2_code","Census_fips_code","date","retail_and_recreation","grocery_and_pharmacy","parks","transit_stations","workplaces","residential")) %>% 
+    select(-subregion2,-ISO_3166_2_code,-Census_fips_code) %>%
     gather("location","vs_baseline",c(retail_and_recreation,grocery_and_pharmacy,parks,transit_stations,workplaces,residential)) %>% 
     mutate(location = as.factor(location))
 }
